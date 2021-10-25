@@ -3,67 +3,31 @@
 import pygame
 from pygame.locals import *
 
+#démarer le jeu
+pygame.init()
+
+
 #taille de l'écran
-WIDTH = 400
-HEIGHT = 300
+WIDTH = 1000
+HEIGHT = 1000
 
-#couleur de fond en RGB
-background = (255, 255, 255)
-
-fps = 60
-
-#notre joueur
-class Sprite(pygame.sprite.Sprite):
-    def __init__(self, image, startx, starty):
-        super().__init__()
-        pygame.sprite.Sprite.__init__(self)
-
-        
-        self.image = pygame.image.load((image))
-        #rect=rectangle=hitbox
-        self.rect = self.image.get_rect()
-        self.image.fill(12,31,23)
-        
-        #on le place où on veut
-        self.rect.center = [startx, starty]
-
-        #recevoir les inputs
-        def update(self):
-            pass
-
-        def draw(self, screen):
-            screen.blit(self.image, self.rect)
-
-#notre joueur
-class Joueur(pygame.sprite.Sprite):
-    def __init__(self, image, startx, starty):
-        super().__init__("p1_front.png", startx, starty)   
-
-#un objet
-class Box(Sprite):
-    def __init__(self, startx, starty):
-        super().__init__("p1_front.png", startx, starty)   
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption('Le nom du jeu ici')
 
 
-def main():
-    #initialisation de pygame
-    pygame.init()
+#nos images
+bg_img = pygame.image.load('/Users/jacobducas/Documents/GitHub/jeu/bg.png')
 
-    #notre écran
-    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+run = True
+while run:
 
-    clock = pygame.time.Clock()
+    #remplir l'écran avec notre image
+    screen.blit(bg_img, (0,0))
 
-    #boucle infinie pour la durée du jeu
-    while True:
-        screen.fill(background)
-        pygame.display.flip()
+    for event in pygame.event.get():
 
-        clock.tick(60)
+        #si on clique sur le x en haut à gauche le jeu ferme
+        if event.type == pygame.QUIT:
+            run = False
 
-
-
-
-
-if __name__=="__main__":
-    main()
+pygame.quit()
