@@ -1,26 +1,69 @@
-#faire sol
-import sys, pygame
-pygame.init()
+#importer modules
 
-size = width, height = 320, 240
-speed = [2, 2]
-black = 0, 0, 0
+import pygame
+from pygame.locals import *
 
-screen = pygame.display.set_mode(size)
+#taille de l'écran
+WIDTH = 400
+HEIGHT = 300
 
-ball = pygame.image.load("giphy.gif")
-ballrect = ball.get_rect()
+#couleur de fond en RGB
+background = (255, 255, 255)
 
-while 1:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT: sys.exit()
+fps = 60
 
-    ballrect = ballrect.move(speed)
-    if ballrect.left < 0 or ballrect.right > width:
-        speed[0] = -speed[0]
-    if ballrect.top < 0 or ballrect.bottom > height:
-        speed[1] = -speed[1]
+#notre joueur
+class Sprite(pygame.sprite.Sprite):
+    def __init__(self, image, startx, starty):
+        super().__init__()
+        pygame.sprite.Sprite.__init__(self)
 
-    screen.fill(black)
-    screen.blit(ball, ballrect)
-    pygame.display.flip()
+        
+        self.image = pygame.image.load((image))
+        #rect=rectangle=hitbox
+        self.rect = self.image.get_rect()
+        self.image.fill(12,31,23)
+        
+        #on le place où on veut
+        self.rect.center = [startx, starty]
+
+        #recevoir les inputs
+        def update(self):
+            pass
+
+        def draw(self, screen):
+            screen.blit(self.image, self.rect)
+
+#notre joueur
+class Joueur(pygame.sprite.Sprite):
+    def __init__(self, image, startx, starty):
+        super().__init__("p1_front.png", startx, starty)   
+
+#un objet
+class Box(Sprite):
+    def __init__(self, startx, starty):
+        super().__init__("p1_front.png", startx, starty)   
+
+
+def main():
+    #initialisation de pygame
+    pygame.init()
+
+    #notre écran
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+
+    clock = pygame.time.Clock()
+
+    #boucle infinie pour la durée du jeu
+    while True:
+        screen.fill(background)
+        pygame.display.flip()
+
+        clock.tick(60)
+
+
+
+
+
+if __name__=="__main__":
+    main()
